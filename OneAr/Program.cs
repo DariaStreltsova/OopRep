@@ -6,12 +6,15 @@ class HelloWorld {
     OneDimensionalArray el = new OneDimensionalArray(n, true);
     Console.WriteLine("Массив:");
     el.Output();
+    Console.WriteLine();
     Console.WriteLine("Среднее значение в массиве: " + el.average());
+    Console.WriteLine("Массив без повторов:");
+    el.WithoutRepeats();
+    el.Output();
+    Console.WriteLine();
     Console.WriteLine("Массив с элементами в диапозоне от -100 до 100: ");
     el.mod();
     el.Output();
-    Console.WriteLine("Массив без повторов:");
-    el.WithoutRepeats();
   }
 }
 class OneDimensionalArray
@@ -29,7 +32,7 @@ class OneDimensionalArray
             array = UserInput(n);
         }
     }
-    
+   
     public int[] RandomInput(int len){
         int[] Array = new int[len];
         Random el = new Random();
@@ -38,16 +41,17 @@ class OneDimensionalArray
         }
         return Array;
     }
-    
+   
     public int[] UserInput(int len){
         int[] Array = new int[len];
         for(int i = 0; i < len; i ++){
+            Console.WriteLine("Введите элемент");
             int el = int.Parse(Console.ReadLine());
             Array[i] = el;
         }
         return Array;
     }
-    
+   
     public double average(){
         double sum = 0;
         for(int i = 0; i < array.Length; i ++){
@@ -55,7 +59,7 @@ class OneDimensionalArray
         }
         return sum/array.Length;
     }
-    
+   
     public void mod(){
         int len2 = 0;
         int[] num2 = new int[array.Length];
@@ -65,6 +69,7 @@ class OneDimensionalArray
             }
             num2[i] = array[i];
         }
+
 
         array = new int[len2];
         int j = 0;
@@ -77,27 +82,32 @@ class OneDimensionalArray
         }
     }
     public void WithoutRepeats(){
-        int[] c = new int[array.Length + 1];
+        int n;
+        int[] array2 = new int[array.Length];
         int len2 = 0;
-        int col = 0;
-        int temp;
-        bool b=false;
-        for (int i = 0; i < array.Length; i++){
-            for (int j = 0; j < array.Length; j++)
+        for(int i = 0; i < array.Length; i++)
+        {
+            n = 1;
+            for(int j = 0; j < i; j++)
+            {  
+                if(array[j] == array[i])
                 {
-                    if (array[i] == array[j])
-                    {
-                        col++;
-                    }
-
-                }            
-            if (col == 1)
+                    n = 0;
+                }
+            }
+            if(n == 1)
             {
-                c[len2] = array[i];
+                array2[len2] = array[i];
                 len2++;
             }
         }
+        array = new int [len2];
+        for(int i = 0; i < array.Length; i++)
+        {
+            array[i] = array2[i];
+        }
     }
+
 
     public void Output(){
         for(int i = 0; i < array.Length; i ++){
